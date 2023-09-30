@@ -1,0 +1,39 @@
+const mongoose = require('mongoose');
+
+// Define the diet plan schema
+const dietPlanSchema = new mongoose.Schema({
+  // Reference to the user who owns this diet plan
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User', // This should match the name of your User model
+    required: true,
+  },
+  // Title or name of the diet plan
+  title: {
+    type: String,
+    required: true,
+  },
+  // Description of the diet plan
+  description: {
+    type: String,
+    required: true,
+  },
+  // An array of meals in the diet plan
+  meals: [
+    {
+      name: String,
+      description: String,
+      // You can add more fields like 'calories', 'ingredients', etc.
+    },
+  ],
+  // Date when the diet plan was created
+  created_at: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
+// Create the DietPlan model using the schema
+const DietPlan = mongoose.model('DietPlan', dietPlanSchema);
+
+module.exports = DietPlan;
